@@ -12,6 +12,8 @@ public interface BookingRepository extends JpaRepository<Booking, Booking.Bookin
 
     List<Booking> findByAccountId(Long accountId);
 
+    List<Booking> findByAccountUsername(String username);
+
     List<Booking> findByDateAndHour(LocalDate date, int hour);
 
     List<Booking> findByDate(LocalDate date);

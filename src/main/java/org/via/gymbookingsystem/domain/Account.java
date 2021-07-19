@@ -5,26 +5,30 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Account {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NonNull
-    private String name;
+    private String username;
 
     @NonNull
-    private String password;
+    private String firstName;
+
+    @NonNull
+    private String lastName;
 
     @NonNull
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private AccountRole accountRole;
 }
