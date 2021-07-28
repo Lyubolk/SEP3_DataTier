@@ -1,22 +1,33 @@
 package org.via.gymbookingsystem.persistence;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.via.gymbookingsystem.domain.Booking;
+import org.via.gymbookingsystem.rest.FullBooking;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface BookingRepository extends JpaRepository<Booking, Booking.BookingId> {
+@RepositoryRestResource(excerptProjection = FullBooking.class)
+public interface BookingRepository extends Repository<Booking, Booking.BookingId> {
 
-    List<Booking> findByAccountId(Long accountId);
+    Booking save(Booking b);
 
-    List<Booking> findByAccountUsername(String username);
+    Optional<Booking> findById(Booking.BookingId id);
 
-    List<Booking> findByDateAndHour(LocalDate date, int hour);
+    List<Booking> findAll();
 
-    List<Booking> findByDate(LocalDate date);
+    List<Booking> findByIdAccountAndIdGym(
+            Long idAccount, Long idGym);
 
-    List<Booking> findByAccountIdAndDate(Long accountId, LocalDate date);
+    List<Booking> findByIdAccountAndIdGymAndIdDate(
+            Long idAccount, Long idGym, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate idDate);
+
+    List<Booking> findByIdGymAndIdDateAndIdHour(
+            Long idGym, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate idDate, int idHour);
+
+    int countByIdGymAndIdDateAndIdHour(
+            Long idGym, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate idDate, int idHour);
 }

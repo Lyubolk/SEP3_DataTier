@@ -8,11 +8,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class GymBookingSystemApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(GymBookingSystemApplication.class);
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(GymBookingSystemApplication.class, args);
 	}

@@ -1,17 +1,16 @@
 package org.via.gymbookingsystem.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import org.via.gymbookingsystem.domain.Account;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Account findByEmail(String email);
+    Optional<Account> findByEmail(String email);
 
-    List<Account> findAccountByUsername (String username);
-
-    List<Account> findByFirstNameAndLastName(String firstName, String lastName);
+    List<Account> findByName(String name);
 }
+
+

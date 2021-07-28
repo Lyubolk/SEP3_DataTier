@@ -4,39 +4,59 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@IdClass(Booking.BookingId.class)
 public class Booking {
 
+    @Embeddable
+    @Data
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class BookingId implements Serializable {
         private Long account;
         private Long gym;
-        private int hour;
         private LocalDate date;
+        private int hour;
     }
 
-    @Id
+    @EmbeddedId
+    private BookingId id;
+
+    @MapsId("account")
     @ManyToOne
     private Account account;
 
-    @Id
+    @MapsId("gym")
     @ManyToOne
     private Gym gym;
 
-    @Id
-    private int hour;
+    public Booking(Account a, Gym g, LocalDate date, int hour) {
+        this.id = new BookingId(a.getId(), g.getId(), date, hour);
+        this.account = a;
+        this.gym = g;
+    }
 
-    @Id
-    private LocalDate date;
+    public Booking() {
+        this.id = new BookingId();
+    }
+
+    public LocalDate getDate() {
+        return id.getDate();
+    }
+
+    public void setDate(LocalDate date) {
+        id.setDate(date);
+    }
+
+    public int getHour() {
+        return id.getHour();
+    }
+
+    public void setHour(int hour) {
+        id.setHour(hour);
+    }
 }

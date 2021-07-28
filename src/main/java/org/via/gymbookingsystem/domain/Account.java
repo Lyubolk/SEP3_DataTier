@@ -9,26 +9,17 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Account {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
-    @NonNull
-    private String username;
+    @NonNull private String email;
 
-    @NonNull
-    private String firstName;
+    @NonNull private String name;
 
-    @NonNull
-    private String lastName;
-
-    @NonNull
-    private String email;
-
-    @Enumerated(EnumType.STRING)
-    @NonNull
-    private AccountRole accountRole;
+    @NonNull private String password;
 }
